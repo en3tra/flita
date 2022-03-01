@@ -4,15 +4,14 @@
 
 int main() {
 	setlocale(LC_ALL, "Rus");
-	int i, k = 1, dvch = 0, n, z, x;
+	int k = 1, dvch = 0, n, x;
 	printf("Введите кол-во элементов в множестве: \n");
 	scanf("%d", &n);
 	int a10[n], a2[n];
 	printf("Заполните множество числами \n");
-	for (i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		printf("a10[%d] = ", i);
-		scanf("%d", &z);
-		a10[i] = z;
+		scanf("%d", &a10[i]);
 	}
 	printf("Выберите число из множества (указать его порядок в множестве): \n");
 	scanf("%d", &x);
@@ -25,7 +24,7 @@ int main() {
 	printf("Число в двоичной СС: \n");
 	printf("%d\n", dvch);
 	printf("Вывод всех элементов в двоичной СС: \n");
-	for (i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++) {
 		k = 1;
 		dvch = 0;
 		while (a10[i] > 0) {
