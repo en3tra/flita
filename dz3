@@ -1,0 +1,32 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <locale.h>
+
+int main() {
+	setlocale(LC_ALL, "Rus");
+	FILE* f;
+	int n = 0, k = 0, i = 0;
+	char c;
+	f = fopen("matrix_of_incendence41.txt", "r");
+	while (fscanf(f, "%d", &i) != EOF) {
+		if (0 <= i <= 1) {
+			n++;
+		}
+	}
+	fclose(f);
+	f = fopen("matrix_of_incendence41.txt", "r");
+	while (fscanf(f, "%c", &c) != EOF) {
+		if (c == '\n') {
+			k++; //количество вершин
+		}
+	}
+	n = n / k; //количество ребер
+    if (n > ((k - 1) * (k - 2)) / 2) { //теорема о связности
+		printf("Граф связный");
+	}
+	else {
+		printf("Граф несвязный");
+	}
+	fclose(f);
+	return 0;
+}
