@@ -1,17 +1,17 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
-#include <Windows.h>
-#define END 4000011
+#include <time.h>
+#define END 2000000
 #define STEP1 200000
 #define NUM 4
 #define MAXN 100
 
 long shell_sort(int* array, int size) {
-    long t;
-    t = GetTickCount64();
+    clock_t start, stop;
+    start = clock();
     for (int s = size / 2; s > 0; s /= 2) {
-        for (int i = s; i < size; i++) {
+        for (int i = s; i < size; ++i) {
             for (int j = i - s; j >= 0 && array[j] < array[j + s]; j -= s) {
                 int temp = array[j];
                 array[j] = array[j + s];
@@ -19,8 +19,8 @@ long shell_sort(int* array, int size) {
             }
         }
     }
-    t = GetTickCount64() - t;
-    return t;
+    stop = clock();
+    return (stop - start);
 }
 
 int main() {
@@ -33,7 +33,7 @@ int main() {
     file1 = fopen("filenum.txt", "w");
     file2 = fopen("filetime.txt", "w");
     for (int i = 10; i < END; i += STEP1) {
-        for (int j = MAXN; j < MAXN+NUM; j += 1) {
+        for (int j = MAXN; j < MAXN + NUM; j += 1) {
             int** A = (int**)malloc(i * sizeof(int*));
             for (int k = 0; k < i; k++) {
                 A[k] = (int*)malloc(j * sizeof(int));
@@ -63,7 +63,7 @@ int main() {
                 }
             }
             free(mas);
-            for (int k = 0; k < i ; k++) {
+            for (int k = 0; k < i; k++) {
                 free(A[k]);
             }
             free(A);
@@ -76,5 +76,4 @@ int main() {
                 fprintf(file, "-1 || N = %i\n", i);
         }
     }
-    return 0;
 }
