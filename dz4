@@ -20,7 +20,7 @@ long shell_sort(int* array, int size) {
         }
     }
     stop = clock();
-    return ((stop - start) / CLK_TCK);
+    return (stop - start);
 }
 
 int main() {
