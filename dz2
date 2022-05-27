@@ -1,0 +1,54 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+
+
+int main() {
+    FILE* matrix;
+    FILE* graph;
+    char c, matrix1[101][101];
+    int n = 0, k = 0, k1 = 0, num = 0, v = 0;
+    matrix = fopen("matrix_of_incendence157.txt", "r");
+    while (!feof(matrix)) {
+        fscanf(matrix, "%c", &c);
+        if (c == '0' || c == '1') {
+            matrix1[n][k] = c;
+            k++;
+            k1++;
+        }
+        if (c == '\n') {
+            n++;
+            k = 0;
+        }
+    }
+    n--;
+    k = k1 / n;
+    graph = fopen("graph.gv", "w");
+    fprintf(graph, "graph G {\n");
+    for (int a = 0; a < k; a++)
+    {
+        num = 0;
+        for (int b = 0; b < n; b++)
+        {
+            if (matrix1[b][a] == '1' && num == 0) {
+                num++;
+                v = b;
+            }
+            else if (matrix1[b][a] == '1') {
+                num++;
+                if (num >= 2) {
+                    fprintf(graph, "\t%d -- %d;\n", v + 1, b + 1);
+                }
+            }
+        }
+        if (num == 1) {
+            fprintf(graph, "\t%d -- %d;\n", v + 1, v + 1);
+        }
+    }
+    fprintf(graph, "}");
+    fclose(matrix);
+    fclose(graph);
+    system("dot graph.gv -Tpng -o image.png");
+    system("image.png");
+    return 0;
+}
